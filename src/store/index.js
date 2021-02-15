@@ -1,16 +1,15 @@
 import { createStore } from "vuex";
+import { saveNoteDataToStorage } from "../util.js";
 
 let store;
 
 export default store = createStore({
-  // state: {
-
+  state: {},
+  // state() {
+  //   return {
+  //     noteData: { a: "first note vuex" },
+  //   };
   // },
-  state() {
-    return {
-      noteData: { a: "first note vuex" },
-    };
-  },
   mutations: {
     updateNote(state, { noteId, noteText }) {
       state.noteData[noteId] = noteText;
@@ -18,13 +17,13 @@ export default store = createStore({
   },
   actions: {
     updateNote({ commit, state }, { noteId, noteText }) {
-      console.log("state", state);
       commit("updateNote", { noteId, noteText });
-
-      // todo localforage on noteData
+      const noteData = JSON.parse(JSON.stringify(state.noteData));
+      saveNoteDataToStorage(noteData);
     },
   },
   modules: {},
 });
 
+// todo remove
 window.store = store;
