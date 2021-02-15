@@ -16,15 +16,15 @@ export default store = createStore({
       state.noteData[noteId] = noteText;
     },
   },
-  actions: {},
+  actions: {
+    updateNote({ commit, state }, { noteId, noteText }) {
+      console.log("state", state);
+      commit("updateNote", { noteId, noteText });
+
+      // todo localforage on noteData
+    },
+  },
   modules: {},
 });
 
 window.store = store;
-
-// store.watch(
-//   () => store.state.noteData.a,
-//   (val) => {
-//     console.log("val", val);
-//   }
-// );
