@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 
-export default createStore({
+let store;
+
+export default store = createStore({
   // state: {
 
   // },
@@ -9,7 +11,20 @@ export default createStore({
       noteData: { a: "first note vuex" },
     };
   },
-  mutations: {},
+  mutations: {
+    updateNote(state, { noteId, noteText }) {
+      state.noteData[noteId] = noteText;
+    },
+  },
   actions: {},
   modules: {},
 });
+
+window.store = store;
+
+// store.watch(
+//   () => store.state.noteData.a,
+//   (val) => {
+//     console.log("val", val);
+//   }
+// );
