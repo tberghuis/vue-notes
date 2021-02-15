@@ -10,6 +10,7 @@ export async function loadNoteDataFromStorage() {
   store.state.noteData = data;
 }
 
-export function saveNoteDataToStorage(noteData) {
+export function saveNoteDataToStorage(state) {
+  const noteData = JSON.parse(JSON.stringify(state.noteData));
   localForage.setItem("noteData", noteData);
 }

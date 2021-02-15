@@ -1,16 +1,18 @@
 <template>
   <div>edit note</div>
   <textarea cols="30" rows="10" v-model="noteText"></textarea>
+  <button @click="deleteNote">Delete Note</button>
 </template>
 
 <script>
 import store from "../store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { computed } from "vue";
 
 export default {
   setup(props) {
     const route = useRoute();
+    const router = useRouter();
 
     const noteText = computed({
       get() {
@@ -24,8 +26,14 @@ export default {
       },
     });
 
+    function deleteNote() {
+      store.dispatch("deleteNote", route.params.noteId);
+      router.go(-1);
+    }
+
     return {
       noteText,
+      deleteNote,
     };
   },
 };

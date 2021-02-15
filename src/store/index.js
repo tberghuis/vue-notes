@@ -14,12 +14,20 @@ export default store = createStore({
     updateNote(state, { noteId, noteText }) {
       state.noteData[noteId] = noteText;
     },
+
+    deleteNote(state, noteId) {
+      delete state.noteData[noteId];
+    },
   },
   actions: {
     updateNote({ commit, state }, { noteId, noteText }) {
       commit("updateNote", { noteId, noteText });
-      const noteData = JSON.parse(JSON.stringify(state.noteData));
-      saveNoteDataToStorage(noteData);
+      saveNoteDataToStorage(state);
+    },
+
+    deleteNote({ commit, state }, noteId) {
+      commit("deleteNote", noteId);
+      saveNoteDataToStorage(state);
     },
   },
   modules: {},
